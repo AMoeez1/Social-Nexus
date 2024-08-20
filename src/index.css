@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background: #f3f4f6;
+}
+.ant-modal-content{
+    padding: 0;
+}
