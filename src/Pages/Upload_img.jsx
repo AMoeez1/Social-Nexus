@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import axiosReq from '../http';
 
 export default function Upload_img() {
+
 	const navigate = useNavigate();
-	const [fileList, setFileList] = useState([]);
+	const [files, setFiles] = useState([]);
 	const [uploading, setUploading] = useState(false);
 	const [registerForm] = useForm();
 
@@ -25,19 +26,18 @@ export default function Upload_img() {
 		}
 	}, [navigate]);
 
-	const handleUpload = () => {
+	const handleUpload = (values) => {
 		const formData = new FormData();
-		fileList.forEach((file) => {
-			console.log('Appending file', file);
-			formData.append('files[]', file);
-		});
-		formData.append('desc', registerForm.getFieldValue('desc'));
-		formData.append('title', registerForm.getFieldValue('title'));
+		formData.append('desc', values.desc);
+		formData.append('title', values.title);
+		for (let x = 0; x < files.length; x++) {
+			formData.append("files", files[x]);
+		}
 
 		setUploading(true);
 		axiosReq.post('/post', formData)
 			.then(() => {
-				setFileList([]);
+				setFiles([]);
 				registerForm.resetFields();
 				message.success('Upload successful.');
 			})
@@ -49,22 +49,6 @@ export default function Upload_img() {
 			});
 	};
 
-	const handleRemove = (file) => {
-		const index = fileList.indexOf(file);
-		const newFileList = [...fileList];
-		newFileList.splice(index, 1);
-		setFileList(newFileList);
-	};
-
-	const props = {
-		onRemove: (file) => handleRemove(file),
-		beforeUpload: (file) => {
-			setFileList([...fileList, file]);
-			console.log('Selected file', file)
-			return false;
-		},
-		fileList,
-	};
 	return (
 		<Layout>
 			<div className="flex items-center justify-center pt-8">
@@ -82,7 +66,7 @@ export default function Upload_img() {
 							</svg>
 						</i>
 					</div>
-					<Form form={registerForm} className="space-y-4 col-span-4">
+					<Form onFinish={handleUpload} form={registerForm} className="space-y-4 col-span-4">
 						<Form.Item name='title'>
 							<Input placeholder='Enter Title' />
 						</Form.Item >
@@ -90,22 +74,15 @@ export default function Upload_img() {
 							<Input.TextArea showCount maxLength={150} placeholder='Enter your post description' className='px-4 py-2 max-h-60' />
 						</Form.Item>
 						<Form.Item name='file'>
-							<Upload action={'/post'}
-								headers={{
-									// 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-								}}
-								{...props}>
-								<Button icon={<UploadOutlined />}>Select File</Button>
-							</Upload>
+							<input type="file" multiple onChange={event => setFiles(event.target.files)} />
 						</Form.Item>
 						<Button
 							type="primary"
-							onClick={handleUpload}
-							disabled={fileList.length === 0}
+							htmlType='submit'
 							loading={uploading}
 							style={{ marginTop: 16 }}
 						>
-							{uploading ? 'Uploading' : 'Start Upload'}
+							{uploading ? 'Posting' : 'Post'}
 						</Button>
 					</Form>
 				</div>
