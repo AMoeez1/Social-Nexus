@@ -67,7 +67,7 @@ function Footer() {
 			})
 	};
 	return (
-		<div className="container block sm:hidden" >
+		<div className="container block border-t-2 sm:hidden" >
 			<ul className='flex items-center justify-between gap-16 py-2 px-8'>
 				<li>
 					<Link to={'/'}>
@@ -77,7 +77,7 @@ function Footer() {
 				</li>
 				<li>
 					<Link to={'/explore'}>
-					<MdOutlineExplore size={25} />
+						<MdOutlineExplore size={25} />
 					</Link>
 				</li>
 				<li>
@@ -96,15 +96,15 @@ function Footer() {
 					</Link>
 				</li>
 				<li>
-				{contextHolder}
-				<Popconfirm
-					title="Log Out"
-					className=" flex items-center gap-2 text-white font-semibold"
-					description="Are You Sure, You want to log out"
-					onConfirm={success}
-				>
-					<LuLogOut size={20} />
-				</Popconfirm>
+					{contextHolder}
+					<Popconfirm
+						title="Log Out"
+						className=" flex items-center gap-2 text-white font-semibold"
+						description="Are You Sure, You want to log out"
+						onConfirm={success}
+					>
+						<LuLogOut size={20} />
+					</Popconfirm>
 				</li>
 			</ul>
 		</div>

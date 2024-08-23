@@ -7,7 +7,7 @@ import Sm_Sidebar from './Sm_Sidebar';
 export default function Layout({ children }) {
   return (
     <>
-      <div className="h-full grid grid-cols-12">
+      <div className="h-full grid grid-cols-12 overflow-x-hidden overflow-y-hidden">
         <div className="lg:col-span-2 md:col-span-1 col-span-10">
           <div className="xl:block hidden">
             <Sidebar />
@@ -25,7 +25,7 @@ export default function Layout({ children }) {
         </main>
         {/* Footer */}
       </div>
-      <div className="bg-gray-800 text-gray-300 fixed w-full" style={{ top: '91.5vh' }}>
+      <div className="bg-gray-100 fixed w-full" style={{ top: '92.5vh' }}>
         <Footer />
       </div>
     </>

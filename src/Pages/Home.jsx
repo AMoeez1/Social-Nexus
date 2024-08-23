@@ -7,8 +7,15 @@ import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { RiSaveFill, RiSaveLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { message } from "antd";
-import postsData from "../Data/postsData";
+import Data from "../Data/postsData";
 import ScrollToTop from "../Components/ScrollToTop";
+import jordan from '../assets/Profile/JORDAN9.jfif'
+import jordan1 from '../assets/Profile/JORDAN_06.jpg'
+import jordan2 from '../assets/Profile/JORDAN4.jpg'
+import jordan3 from '../assets/Profile/JORDAN2.jpg'
+import jordan4 from '../assets/Profile/JORDAN7.jpg'
+import jordan5 from '../assets/Profile/JORDAN10.jpg'
+
 
 export default function Home() {
   const userData = localStorage.getItem('user');
@@ -56,8 +63,8 @@ export default function Home() {
   };
 
   const randomPost = () => {
-    postsData.sort(() => Math.random() - 0.5);
-    return postsData[0];
+    Data.sort(() => Math.random() - 0.5);
+    return Data[0];
   };
 
   useEffect(() => {
@@ -65,12 +72,33 @@ export default function Home() {
   }, []);
 
   const handleFollow = (username) => {
-    setFollow(prevFollow => ({
-      ...prevFollow,
-      [username]: !prevFollow[username], 
-    }));
-    message.success(`Started Following ${username}`) 
+    setFollow(prevFollow => {
+      const isCurrentlyFollowing = prevFollow[username];
+      const newFollowState = !isCurrentlyFollowing;
+
+      return {
+        ...prevFollow,
+        [username]: newFollowState,
+      };
+    });
+
+    const isCurrentlyFollowing = follow[username];
+    const newFollowState = !isCurrentlyFollowing;
+
+    if (newFollowState) {
+      message.success(`Started Following ${username}`);
+    } else {
+      message.error(`Unfollowed ${username}`);
+    }
   };
+  const profile = [
+    jordan,
+    jordan1,
+    jordan2,
+    jordan3,
+    jordan4,
+    jordan5
+  ];
 
   return (
     <ScrollToTop>
@@ -79,7 +107,7 @@ export default function Home() {
           <div className="grid grid-cols-12">
             <div className="col-span-1"></div>
             <div className="md:col-span-7 lg:col-span-6 xl:col-span-4 col-span-11 mt-4 z-index-1">
-              {postsData.map((item) => (
+              {Data?.map((item) => (
                 <div className="card px-5 py-3 bg-white rounded-lg shadow-xl mt-4" key={item.id}>
                   <div className="flex items-center">
                     <img className="rounded-full mr-3 w-10 h-10" src={item.img} alt="Profile Picture" />
@@ -112,7 +140,7 @@ export default function Home() {
             <div className="card lg:col-span-4 lg:mt-20 pl-8 hidden xl:block relative left-20">
               <ul className="border-l p-4">
                 <div className="flex bg-white hover:bg-gray-50 p-2 border-gray-200 shadow-lg">
-                  <img className="w-10 h-10 rounded-full mr-2" src="https://placehold.co/32x32" alt="User Avatar" />
+                  <img className="w-10 h-10 rounded-full mr-2" src={jordan} alt="User Avatar" />
                   <Link to={`/profile/${user?.username}`} className="flex flex-col">
                     <p className="font-bold text-sm">{user.username}</p>
                     <p className="text-sm text-start text-gray-500">{user.name}</p>
@@ -122,14 +150,16 @@ export default function Home() {
                 <div className="flex justify-between items-center">
                   <p className="py-3 font-semibold">Suggested For You</p>
                 </div>
-                {users.map((item) => (
+                {users.map((item, index) => (
                   <div key={item?.id} className="flex items-center bg-white hover:bg-gray-50 p-2 border-gray-200 mb-1 shadow-md">
-                    <img className="w-10 h-10 rounded-full mr-2" src="https://placehold.co/32x32" alt="User Avatar" />
-                    <div className="flex flex-col">
-                      <p className="font-bold text-sm">{item.username}</p>
-                      <p className="text-sm text-start text-gray-500">{item.name}</p>
-                    </div>
-                    <button 
+                    <Link to={`/user/${item?.username}`} className="flex">
+                      <img className="w-10 h-10 rounded-full mr-2" src={profile[index % profile.length]} alt="User Avatar" />
+                      <div className="flex flex-col">
+                        <p className="font-bold text-sm">{item.username}</p>
+                        <p className="text-sm text-start text-gray-500">{item.name}</p>
+                      </div>
+                    </Link>
+                    <button
                       className="ml-auto bg-gray-800 text-white hover:bg-gray-900 text-sm py-1 px-2 rounded shadow-lg"
                       onClick={() => handleFollow(item?.username)}
                     >

@@ -5,6 +5,7 @@ import { IoMdAddCircleOutline } from 'react-icons/io';
 import { IoSearchSharp } from 'react-icons/io5';
 import { LuLogOut, LuMenu } from 'react-icons/lu';
 import { MdHomeFilled, MdMenu, MdOutlineExplore } from 'react-icons/md';
+import { RiRobot2Fill } from 'react-icons/ri';
 import { SiMessenger } from 'react-icons/si';
 import { TbPlayerPlayFilled } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
@@ -44,11 +45,18 @@ export default function Widget() {
             icon: <MdOutlineExplore size={25} />,
             href: '/explore'
         },
+        // {
+        //     id: 4,
+        //     title: 'Reels',
+        //     icon: <TbPlayerPlayFilled size={25} />,
+        //     href: '/reels'
+        // },
+
         {
-            id: 4,
-            title: 'Reels',
-            icon: <TbPlayerPlayFilled size={25} />,
-            href: '/reels'
+            id: 12,
+            title: 'Chat Bot',
+            icon: <RiRobot2Fill size={20} />,
+            href: '/chatbot/ai'
         },
         {
             id: 5,
@@ -120,15 +128,15 @@ export default function Widget() {
                 ))
                 }
 
-{contextHolder}
-					<Popconfirm
-						title="Log Out"
-						className="mt-10 flex items-center mx-6 gap-2 font-semibold cursor-pointer"
-						description="Are You Sure, You want to log out"
-						onConfirm={success}
-					>
-						<LuLogOut size={25} />
-					</Popconfirm>
+                {contextHolder}
+                <Popconfirm
+                    title="Log Out"
+                    className="mt-10 flex items-center mx-6 gap-2 font-semibold cursor-pointer"
+                    description="Are You Sure, You want to log out"
+                    onConfirm={success}
+                >
+                    <LuLogOut size={25} />
+                </Popconfirm>
             </ul>
         </div >
     );

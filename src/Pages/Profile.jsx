@@ -3,10 +3,11 @@ import Layout from '../Components/Layout';
 import Auth from '../Components/middlewares/Auth';
 import { Link } from 'react-router-dom';
 import { GoVerified } from 'react-icons/go';
-// import Jordan from '../assets/Profile/Jordan1'
-import postsData from '../Data/postsData';
+import Jordan from '../assets/Profile/jordan1.jpg'
+import data from '../Data/postsData';
 import { BiEdit } from 'react-icons/bi';
 import { SlUser, SlUserFemale } from 'react-icons/sl';
+import { CiCamera } from 'react-icons/ci';
 export default function Profile() {
 	const [userData, setUserData] = useState(null);
 	useEffect(() => {
@@ -33,12 +34,12 @@ export default function Profile() {
 					<div className="flex items-center space-x-4" >
 						<div className="relative">
 							{/* <img className="w-24 h-24 rounded-full" src="https://placehold.co/100x100" alt="Profile picture" /> */}
-							<div className="border-2 rounded-full p-6">
+							{/* <div className="border-2 rounded-full p-6">
 								{userData && userData.gender == 'Female' ?
 									<SlUserFemale size={60}/> : <SlUser size={70} />
 								}
-							</div>
-							{/* <img className="w-20 md:w-32 h-20 md:h-32 rounded-full object-contain" src={profile} alt="Profile picture" /> */}
+							</div> */}
+							<img className="w-20 md:w-32 h-20 md:h-32 rounded-full object-contain" src={Jordan} alt="Profile picture" />
 							<div className="absolute bottom-0 right-0 bg-zinc-200 rounded-full p-1">
 								{/* <img className="w-6 h-6" src="https://placehold.co/24x24?text=🖊️" alt="Edit icon" /> */}
 							</div>
@@ -61,19 +62,19 @@ export default function Profile() {
 					<div className="mt-4">
 						<div className="flex space-x-4">
 							<div>
-								<span className="font-bold">2</span> posts
+								<span className="font-bold">0</span> posts
 							</div>
 							<div>
-								<span className="font-bold">277</span> followers
+								<span className="font-bold">10</span> followers
 							</div>
 							<div>
-								<span className="font-bold">91</span> following
+								<span className="font-bold">0</span> following
 							</div>
 						</div>
-						<p className="mt-2 text-start mb-8 text-muted-foreground">
+						<p className="mt-2 text-start md:mb-8 mb-2 text-muted-foreground">
 							<b>{userData?.name}</b><br />
 							<span className='font-semibold'>Bio: </span>
-							<span>{userData?.bio}</span>
+							<span className='text-md'>{userData?.bio}</span>
 						</p>
 					</div>
 					<hr />
@@ -85,6 +86,12 @@ export default function Profile() {
 								{data?.model}
 							</div>
 						})}
+					</div>
+					<div className="flex justify-center items-center gap-4 md:mt-12">
+						<div className="p-4 border-2 border-black rounded-full">
+							<CiCamera size={50} />
+						</div>
+						<p className='text-2xl'>No Posts Yet</p>
 					</div>
 				</div>
 
