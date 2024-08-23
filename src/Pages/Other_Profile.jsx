@@ -3,6 +3,10 @@ import Auth from '../Components/middlewares/Auth'
 import Layout from '../Components/Layout'
 import { Link, useParams } from 'react-router-dom';
 import postsData from '../Data/postsData';
+import { BiCamera } from 'react-icons/bi';
+import { IoCamera, IoCameraOutline } from 'react-icons/io5';
+import { CiCamera } from 'react-icons/ci';
+import { SlUser, SlUserFemale } from 'react-icons/sl';
 
 export default function Other_Profile() {
 	const encodedData = localStorage.getItem('fetchedUsers');
@@ -21,7 +25,12 @@ export default function Other_Profile() {
 				<div className="max-w-4xl mx-auto p-4">
 					<div className="flex items-center space-x-4">
 						<div className="relative">
-							<img className="w-24 h-24 rounded-full" src="https://placehold.co/100x100" alt="Profile picture" />
+						<div className="border-2 rounded-full p-6">
+								{user && user.gender == 'Female' ?
+									<SlUserFemale size={70} /> : <SlUser size={70} />
+								}
+							</div>
+							{/* <img className="w-24 h-24 rounded-full" src="https://placehold.co/100x100" alt="Profile picture" /> */}
 							<div className="absolute bottom-0 right-0 bg-zinc-200 rounded-full p-1">
 								<img className="w-6 h-6" src="https://placehold.co/24x24?text=🖊️" alt="Edit icon" />
 							</div>
@@ -38,7 +47,7 @@ export default function Other_Profile() {
 					<div className="mt-4">
 						<div className="flex space-x-4">
 							<div>
-								<span className="font-bold">2</span> posts
+								<span className="font-bold">0</span> posts
 							</div>
 							<div>
 								<span className="font-bold">277</span> followers
@@ -54,11 +63,16 @@ export default function Other_Profile() {
 						</p>
 					</div>
 					<hr />
-					<div className="grid grid-cols-2 gap-4 mt-4">
-						<div >
+					<div className="grid grid-cols-2 gap-4 mt-4 h-full">
+						{/* <div >
 							<img className="w-80" src='' alt="Post image 1" />
+						</div> */}
+					</div>
+					<div className="flex justify-center items-center gap-4 mt-24">
+						<div className="p-4 border-2 border-black rounded-full">
+							<CiCamera size={50} />
 						</div>
-
+						<p className='text-2xl'>No Posts Yet</p>
 					</div>
 				</div>
 			</Layout>

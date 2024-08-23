@@ -4,9 +4,9 @@ import Auth from '../Components/middlewares/Auth';
 import { Link } from 'react-router-dom';
 import { GoVerified } from 'react-icons/go';
 // import Jordan from '../assets/Profile/Jordan1'
-import jordan from '../assets/Profile/jordan9.jfif'
 import postsData from '../Data/postsData';
 import { BiEdit } from 'react-icons/bi';
+import { SlUser, SlUserFemale } from 'react-icons/sl';
 export default function Profile() {
 	const [userData, setUserData] = useState(null);
 	useEffect(() => {
@@ -26,10 +26,6 @@ export default function Profile() {
 			document.title = `${userData.name} (${userData.username}) • Instagram`;
 		}
 	}, [userData]);
-
-	const data = postsData.filter((val) => userData?.username === val.model);
-	console.log(data?.model);
-
 	return (
 		<Auth>
 			<Layout>
@@ -37,7 +33,12 @@ export default function Profile() {
 					<div className="flex items-center space-x-4" >
 						<div className="relative">
 							{/* <img className="w-24 h-24 rounded-full" src="https://placehold.co/100x100" alt="Profile picture" /> */}
-							<img className="w-20 md:w-32 h-20 md:h-32 rounded-full object-contain" src={jordan} alt="Profile picture" />
+							<div className="border-2 rounded-full p-6">
+								{userData && userData.gender == 'Female' ?
+									<SlUserFemale size={60}/> : <SlUser size={70} />
+								}
+							</div>
+							{/* <img className="w-20 md:w-32 h-20 md:h-32 rounded-full object-contain" src={profile} alt="Profile picture" /> */}
 							<div className="absolute bottom-0 right-0 bg-zinc-200 rounded-full p-1">
 								{/* <img className="w-6 h-6" src="https://placehold.co/24x24?text=🖊️" alt="Edit icon" /> */}
 							</div>
@@ -46,8 +47,8 @@ export default function Profile() {
 							{/* <h1 className="text-2xl font-bold">moeezify</h1> */}
 							<h2 className="text-lg md:text-xl text-start font-semibold flex items-center gap-1 cursor-pointer">{userData?.username}<GoVerified className='text-blue-800' /> </h2>
 							<div className="flex gap-2">
-							<p className="text-sm	md:text-md text-gray-500 text-start">{userData?.name}</p>
-							<Link to={`/profile/edit/${userData?.username}`} className='block md:hidden'><BiEdit size={20}/></Link>
+								<p className="text-sm	md:text-md text-gray-500 text-start">{userData?.name}</p>
+								<Link to={`/profile/edit/${userData?.username}`} className='block md:hidden'><BiEdit size={20} /></Link>
 
 							</div>
 							<div className="flex space-x-2 mt-2">

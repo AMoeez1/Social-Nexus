@@ -1,4 +1,4 @@
-import { Dropdown, Space } from 'antd';
+import { Dropdown, message, Popconfirm, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { FaInstagram, FaRegHeart, FaUser } from 'react-icons/fa';
 import { IoMdAddCircleOutline } from 'react-icons/io';
@@ -15,6 +15,21 @@ export default function Widget() {
         const username = JSON.parse(atob(localStorage.getItem('user')));
         setUser(username)
     }, [])
+
+    const [messageApi, contextHolder] = message.useMessage();
+    const success = () => {
+        messageApi
+            .open({
+                type: 'loading',
+                content: 'Logging Out',
+                duration: 1,
+            })
+            .then(() => {
+                localStorage.clear();
+                message.success('Logged Out Successfully', 2)
+                Navigate('/')
+            })
+    };
 
     const sidebar = [
         {
@@ -96,7 +111,7 @@ export default function Widget() {
                     </Link>
                 </li>
                 {sidebar.map((item) => (
-                    <li key={item.id} className='py-4 px-5 mx-2 hover:bg-gray-700'>
+                    <li key={item.id} className='py-4 px-5 mx-2 hover:bg-gray-200'>
                         <Link to={item.href}>
                             {item.icon}
                             <span className="sr-only">{item.title}</span>
@@ -105,19 +120,15 @@ export default function Widget() {
                 ))
                 }
 
-                {/* <li className="nav-item pt-32 px-6 ">
-                    <Dropdown
-                        menu={{
-                            items,
-                        }}
-                    >
-                        <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                                <MdMenu size={30} />
-                            </Space>
-                        </a>
-                    </Dropdown>
-                </li> */}
+{contextHolder}
+					<Popconfirm
+						title="Log Out"
+						className="mt-10 flex items-center mx-6 gap-2 font-semibold cursor-pointer"
+						description="Are You Sure, You want to log out"
+						onConfirm={success}
+					>
+						<LuLogOut size={25} />
+					</Popconfirm>
             </ul>
         </div >
     );

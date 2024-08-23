@@ -11,7 +11,7 @@ const Ai_int = () => {
 	const [copyStatus, setCopyStatus] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const genAi = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
+	const genAi = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_KEY);
 
 	const handleChange = (e) => {
 		setInput(e.target.value);

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "antd/es/input/Input";
 import postsData from "../Data/postsData";
 import { Modal } from "antd";
-
+import '../Style/global.css'
 
 export default function Explore() {
 	const navigate = useNavigate();
@@ -136,7 +136,7 @@ export default function Explore() {
 				>
 					{selectedImage && (
 						<div className="grid grid-cols-12 gap-2">
-							<div className="col-span-11">
+							<div className="col-span-12">
 								<img src={selectedImage} alt="Selected" className="w-full h-full object-cover " />
 							</div>
 						</div>

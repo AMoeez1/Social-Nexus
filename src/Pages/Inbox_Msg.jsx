@@ -66,7 +66,7 @@ export default function Messages() {
             </div>
           </div>
         </div>
-        <div className="block md:hidden bg-gray-800 text-gray-300 h-screen fixed w-full" style={{ top: '91.5vh' }}>
+        <div className="block md:hidden bg-gray-100 text-gray-300 h-screen fixed w-full" style={{ top: '91.5vh' }}>
           <Footer />
         </div>
       </div>
